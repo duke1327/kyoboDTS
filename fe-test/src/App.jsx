@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import UserForm from "./components/UserForm";
 import UserList from "./components/UserList";
-import EditUserPage from "./components/EditUserPage";
 
 import "./App.css";
 
@@ -29,7 +28,6 @@ function App() {
                         </>
                     }
                 />
-                <Route path="/users/:id/edit" element={<EditUserPage />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </main>

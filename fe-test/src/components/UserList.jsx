@@ -1,12 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchUser } from "../store/userSlice";
+import { fetchUser, deleteUser } from "../store/userSlice";
+import Swal from "sweetalert2";
+import EditUserPage from "./EditUserPage";
 
 function UserList() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const users = useSelector((state) => state.user.users);
+    const [editUser, setEditUser] = useState(null);
 
     useEffect(() => {
         dispatch(fetchUser());
@@ -32,15 +35,45 @@ function UserList() {
                             <button
                                 className="edit-button"
                                 type="button"
-                                onClick={() => navigate(`/users/${user.id}/edit`)}
+                                onClick={() => setEditUser(user)}
                             >
                                 수정
+                            </button>
+                            <button
+                                className="delete-button"
+                                type="button"
+                                onClick={() => {
+                                    Swal.fire({
+                                        title: "정말로 삭제하시겠습니까?",
+                                        text: "이 작업은 되돌릴 수 없습니다.",
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#d33",
+                                        cancelButtonColor: "#3085d6",
+                                        confirmButtonText: "삭제",
+                                        cancelButtonText: "취소",
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            dispatch(deleteUser(user.id));
+                                        }
+                                    });
+                                }}
+                            >
+                                삭제
                             </button>
                         </li>
                     ))}
                 </ul>
             ) : (
                 <p className="empty-state">등록된 사용자가 없습니다.</p>
+            )}
+
+            {editUser && (
+                <EditUserPage
+                    key={editUser.id}
+                    user={editUser}
+                    onClose={() => setEditUser(null)}
+                />
             )}
         </>
     );
