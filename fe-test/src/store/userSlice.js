@@ -8,10 +8,10 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
 
 export const addUser = createAsyncThunk(
     "user/addUser",
-    async ({ name, email }) => {
+    async ({ name, email, agreed }) => {
         await axios.post(
             "http://localhost:8080/user/add",
-            { name, email }
+            { name, email, agreed }
         );
         const usersResponse = await axios.get(
             "http://localhost:8080/user/list",

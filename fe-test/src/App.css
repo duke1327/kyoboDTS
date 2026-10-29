@@ -322,3 +322,34 @@
 .modal-overlay .user-edit-card {
     width: min(100%, 480px);
 }
+
+.terms-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgb(23 32 51 / 45%);
+}
+
+.terms-modal {
+  width: min(100%, 480px);
+  padding: 28px;
+  border: 1px solid #e5e9f1;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgb(23 32 51 / 12%);
+}
+
+.terms-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.terms-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
