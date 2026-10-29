@@ -2,12 +2,14 @@ package org.example.demo.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.demo.dto.User;
 import org.example.demo.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173")
@@ -23,6 +25,7 @@ public class UserController {
     @Operation(summary = "회원 추가", description = "회원을 추가")
     @PostMapping("/user/add")
     public List<User> addUser(@RequestBody User user) {
+        log.info("[USER] 회원 등록 요청: email={}", user.getEmail());
         userService.addUser(user);
 
         return userService.getUserList();
